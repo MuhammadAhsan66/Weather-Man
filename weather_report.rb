@@ -84,14 +84,19 @@ module Weather
     lines = fd.readlines
     lines.delete_at(0) # remove first line of file
 
+    lines.delete_at(0) if file_path.include? 'lahore'
+    lines.delete_at(-1) if file_path.include? 'lahore'
+
     lines.each do |line|
       line_arr = line.split(',')
-      date = line_arr[0]
 
-      highest_avg_temp = line_arr[2].to_i if line_arr[2].to_i > highest_avg_temp.to_i
+      date = line_arr[0] if n == 5
 
-      lowest_avg_temp = line_arr[2].to_i if line_arr[2].to_i < lowest_avg_temp.to_i
-
+      unless line_arr[2].empty?
+        # puts line_arr[2]
+        highest_avg_temp = line_arr[2].to_i if line_arr[2].to_i > highest_avg_temp.to_i
+        lowest_avg_temp = line_arr[2].to_i if line_arr[2].to_i < lowest_avg_temp.to_i
+      end
       avg_humidity += line_arr[8].to_i
       n += 1
     end
@@ -103,7 +108,7 @@ module Weather
     puts "Average Humid: #{avg_humidity}% "
   end
 
-  def bar_chart(file_path)
+  def bar_chart(file_path, is_bonus)
     unless File.file? file_path
       puts 'File Not Found'
       return
@@ -123,10 +128,9 @@ module Weather
       # day 1-14 is task 3, Day 15 to onwards is bonus task
       max_t = line_arr[1].to_i
       min_t = line_arr[3].to_i
-      puts "" if day == 15
       print "#{day} "
 
-      if day < 15
+      if is_bonus.zero?
         max_t.times { print '+'.red }
         puts " #{max_t}C"
         print "#{day} "
