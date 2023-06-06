@@ -1,5 +1,5 @@
 # Weather-Man
-
+A Practice project to learn&nbsp;&nbsp;<a href="https://www.ruby-lang.org"><img src="https://cdn.emojidex.com/emoji/seal/Ruby.png" width="20" height="20"/></a>&nbsp;&nbsp;Ruby Language.
 ## How to Run:
 ```ruby weather_man.rb {-e | -a | -c | -b} {year | year/month} {path_to_file | path_to_fileFolder}```
 
